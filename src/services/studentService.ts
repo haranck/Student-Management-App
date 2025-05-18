@@ -18,6 +18,7 @@ export class StudentService {
             return { success: false, message: "Error creating student" };
         }
     }
+    
     async getAllStudents(): Promise<ApiResponse<Student[]>> {
         try {
             const students = await this.studentRepository.getAll();
@@ -65,73 +66,3 @@ export class StudentService {
         }
     }
 }
-
-// // Interface for the data access layer (could be a database or an API)
-// interface StudentDataService {
-//     getAllStudents(): Promise<Student[]>;
-//     getStudentById(id: number): Promise<Student | undefined>;
-//     createStudent(student: Omit<Student, 'id'>): Promise<Student>;
-//     updateStudent(id: number, student: Omit<Student, 'id'>): Promise<Student>;
-//     deleteStudent(id: number): Promise<void>;
-// }
-
-// export class StudentService {
-//     private studentDataService: StudentDataService; // Dependency
-
-//     constructor(studentDataService: StudentDataService) { // Dependency Injection
-//         this.studentDataService = studentDataService;
-//     }
-
-//     async getAllStudents(): Promise<Student[]> {
-//         return this.studentDataService.getAllStudents();
-//     }
-
-//     async getStudentById(id: number): Promise<Student | undefined> {
-//         return this.studentDataService.getStudentById(id);
-//     }
-
-//     async createStudent(student: Omit<Student, 'id'>): Promise<Student> {
-//         return this.studentDataService.createStudent(student);
-//     }
-
-//     async updateStudent(id: number, student: Omit<Student, 'id'>): Promise<Student> {
-//         return this.studentDataService.updateStudent(id, student);
-//     }
-
-//     async deleteStudent(id: number): Promise<void> {
-//         return this.studentDataService.deleteStudent(id);
-//     }
-// }
-
-// // Example implementation using in-memory data (replace with database or API calls)
-// export class InMemoryStudentDataService implements StudentDataService {
-//     private students: Student[] = [];
-
-//     async getAllStudents(): Promise<Student[]> {
-//         return Promise.resolve([...this.students]); // Return a copy
-//     }
-
-//     async getStudentById(id: number): Promise<Student | undefined> {
-//         return Promise.resolve(this.students.find(s => s.id === id));
-//     }
-
-//     async createStudent(student: Omit<Student, 'id'>): Promise<Student> {
-//         const newStudent: Student = { id: this.students.length + 1, ...student };
-//         this.students.push(newStudent);
-//         return Promise.resolve(newStudent);
-//     }
-
-//     async updateStudent(id: number, student: Omit<Student, 'id'>): Promise<Student> {
-//         const index = this.students.findIndex(s => s.id === id);
-//         if (index !== -1) {
-//             this.students[index] = { id, ...student };
-//             return Promise.resolve(this.students[index]);
-//         }
-//         return Promise.reject(new Error("Student not found"));
-//     }
-
-//     async deleteStudent(id: number): Promise<void> {
-//         this.students = this.students.filter(s => s.id !== id);
-//         return Promise.resolve();
-//     }
-// }
